@@ -20,6 +20,7 @@
   grid-template-columns: repeat(3, minmax(30%, 1fr));
   gap: 30px;
 
+
   @include mid-break {
     gap: 20px;
   }

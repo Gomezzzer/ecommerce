@@ -66,7 +66,7 @@ export default async function Cart() {
     </div>
   )
 }
-
+// find out where you are at in this project 
 export async function generateMetadata(): Promise<Metadata> {
   let page: Page | null = null
 

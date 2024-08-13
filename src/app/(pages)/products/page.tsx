@@ -8,7 +8,6 @@ import { Blocks } from '../../_components/Blocks'
 import { Gutter } from '../../_components/Gutter'
 import { HR } from '../../_components/HR'
 
-
 import classes from './index.module.scss'
 import Filters from './Filters'
 

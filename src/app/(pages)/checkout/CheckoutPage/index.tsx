@@ -95,7 +95,7 @@ export const CheckoutPage: React.FC<{
       {!cartIsEmpty && (
         <div className={classes.items}>
           <div className={classes.header}>
-            <p>Products</p>
+          <h3 className={classes.checkout}>Checkout</h3>
             <div className={classes.headerItemDetails}>
               <p></p>
               <p className={classes.quantity}>Quantity</p>

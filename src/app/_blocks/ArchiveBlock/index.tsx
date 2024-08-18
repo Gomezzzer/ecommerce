@@ -39,7 +39,7 @@ export const ArchiveBlock: React.FC<
        // selectedDocs={selectedDocs}
         categories={categories}
         limit={limit}
-        sort="-publishedOn"
+      //  sort="-publishedOn"
       />
     </div>
   )

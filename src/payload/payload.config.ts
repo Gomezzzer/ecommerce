@@ -142,10 +142,6 @@ export default buildConfig({
       generateTitle,
       uploadsCollection: 'media',
     }),
-    payloadCloud({
-      storage: false, // Disable file storage
-      email: false,   // Disable email delivery
-      uploadCaching: false // Disable upload caching
-    }),
+    payloadCloud(),
   ],
 })

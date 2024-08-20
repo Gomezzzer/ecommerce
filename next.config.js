@@ -1,17 +1,6 @@
 /** @type {import('next').NextConfig} */
-const ContentSecurityPolicy = require('./csp');
-const redirects = require('./redirects');
-
-// Custom Webpack Plugin to ignore specific errors
-const IgnoreErrorsPlugin = function() {
-  this.apply = function(compiler) {
-    compiler.hooks.done.tap('IgnoreErrorsPlugin', stats => {
-      stats.compilation.errors = stats.compilation.errors.filter(
-        error => !/specific error message/.test(error.message)
-      );
-    });
-  };
-};
+const ContentSecurityPolicy = require('./csp')
+const redirects = require('./redirects')
 
 const nextConfig = {
   typescript: {
@@ -26,9 +15,12 @@ const nextConfig = {
   },
   redirects,
   async headers() {
-    const headers = [];
+    const headers = []
 
     // Prevent search engines from indexing the site if it is not live
+    // This is useful for staging environments before they are ready to go live
+    // To allow robots to crawl the site, use the `NEXT_PUBLIC_IS_LIVE` env variable
+    // You may want to also use this variable to conditionally render any tracking scripts
     if (!process.env.NEXT_PUBLIC_IS_LIVE) {
       headers.push({
         headers: [
@@ -38,10 +30,12 @@ const nextConfig = {
           },
         ],
         source: '/:path*',
-      });
+      })
     }
 
-    // Set the `Content-Security-Policy` header
+    // Set the `Content-Security-Policy` header as a security measure to prevent XSS attacks
+    // It works by explicitly whitelisting trusted sources of content for your website
+    // This will block all inline scripts and styles except for those that are allowed
     headers.push({
       source: '/(.*)',
       headers: [
@@ -50,20 +44,10 @@ const nextConfig = {
           value: ContentSecurityPolicy,
         },
       ],
-    });
+    })
 
-    return headers;
+    return headers
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = { fs: false };
-    }
+}
 
-    // Apply the custom IgnoreErrorsPlugin
-    config.plugins.push(new IgnoreErrorsPlugin());
-
-    return config;
-  },
-};
-
-module.exports = nextConfig;
+module.exports = nextConfig
